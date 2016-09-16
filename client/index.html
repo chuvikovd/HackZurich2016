@@ -25,7 +25,7 @@
     <!-- Module Loading with System.js -->
     <script>
         System.config({
-            /*packages: {
+            packages: {
                 "app": {
                     defaultJSExtension: 'js'
                 },
@@ -34,15 +34,17 @@
                     defaultExtension: 'js'
                 }
             },
-            map: {
+           /* map: {
                 "app": "../client"
             },*/
+/*
             defaultExtensions: true,
-            baseURL: '',
-            defaultExtension: 'js',
-            defaultJSExtensions: false
+*/
+            baseURL: ''
+/*            defaultExtension: 'js',
+            defaultJSExtensions: false*/
         });
-        System.import('./main.js')
+        System.import('app/main.js')
                 .then(null, console.error.bind(console));
     </script>
 
