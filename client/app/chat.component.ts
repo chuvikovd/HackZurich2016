@@ -4,14 +4,14 @@ import {ChatService} from './chat.service';
 
 @Component({
     selector: "chat",
-    providers: [ChatService],
+    //providers: [ChatService],
     template: `
     <div class="chat-container">
         <div id="chat">
             <form id="JoinForm" class="form-inline text-right">
                 <fieldset>
-                  <input type="text" class="form-control" [(ngModel)]="inputValue" placeholder="Type a message here" autocomplete="off" required autofocus />
-                  <button id="send" class="btn btn-success" (click)="sendMessage()">Send</button>
+                  <input type="text" class="form-control msg-input" [(ngModel)]="inputValue" placeholder="Type a message here" autocomplete="off" required autofocus />
+                  <button id="send" class="btn btn-success msg-send" (click)="sendMessage()">Send</button>
                 </fieldset>
             </form>
         </div>

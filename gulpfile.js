@@ -112,7 +112,7 @@ gulp.task('compile-server', function () {
 
 gulp.task('compile-models', function () {
     return gulp
-        .src(modelsTsSrc + '*/*.ts')
+        .src(modelsTsSrc + '**/*.ts')
         .pipe(sourcemaps.init())
         .pipe(typescript(tscConfig.compilerOptionsBE))
         .pipe(sourcemaps.write('.'))

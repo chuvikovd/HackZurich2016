@@ -1,9 +1,10 @@
 import { Component, OnInit } from 'angular2/core';
 import { Message } from '../models/Message'
-import {ChatService} from './chat.service';
+import { ChatService } from './chat.service';
 
 @Component({
     selector: "map",
+    //providers: [ChatService],
     template: `
     <div class="map-container">
         <div id="map">
@@ -17,18 +18,27 @@ export class MapComponent implements OnInit {
 
     mapDiv;
     map;
-    infoWindow;
+
+    constructor(private _chatService: ChatService) {
+
+        console.log('ChatService created');
+        _chatService.getMessage$.subscribe(message => {
+            console.log("PREVIEW " + message.body + message.lat + message.lng);
+            customMarker(this.map, new Position(message.lat, message.lng), message.body);
+        })
+    }
 
     ngOnInit(){
         this.mapDiv = document.getElementById("map");
         this.map = new google.maps.Map(this.mapDiv, {
             center: new Position(42.9837, -81.2497),
-            zoom: 8
+            zoom: 15
         });
+
         /*this.infoWindow = new google.maps.InfoWindow({map: this.map});
         this.infoWindow.setContent('Location found.');*/
-        customMarker(this.map, new Position(47.389733899999996, 8.5165039));
-        customMarker(this.map, new Position(42.9837, -81.2497));
+        //customMarker(this.map, new Position(this.messages[0].lat, this.messages[0].lng));
+        customMarker(this.map, new Position(42.9837, -81.2497), "azaza");
     }
 
 }
@@ -48,7 +58,12 @@ CustomMarker.prototype.draw = function() {
             '<div class="shadow"></div>' +
             '<div class="pulse"></div>' +
             '<div class="pin-wrap">' +
-            '<div class="pin"></div>' +
+                '<div class="pin">' +
+                    '<div class="content">' +
+                        '<span class="author">Dmitrijs:</span>' +
+                        '<p>' + this.data + '</p>' +
+                    '</div>' +
+                '</div>' +
             '</div>' +
             '</div>' +
             '')[0];
@@ -70,11 +85,12 @@ CustomMarker.prototype.draw = function() {
     }
 };
 
-var customMarker = function(map, pos) {
+var customMarker = function(map, pos, data) {
 
     var marker = new CustomMarker({
         position: pos,
         map: map,
+        data: data
     });
 
 };

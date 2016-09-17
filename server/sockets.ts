@@ -1,4 +1,5 @@
 import {Messenger} from './Messenger';
+import {Message} from '../client/models/Message'
 
 export class Sockets {
     constructor(server: any) {
@@ -13,8 +14,9 @@ export class Sockets {
             });
 
 
-            socket.on('message', function (data) {
-                console.log(data);
+            socket.on('message', function (lat : number, lng : number, data : string) {
+                console.log(lat, lng, data);
+                socket.emit('msg', new Message(lat, lng, data))
             });
 
             socket.once('disconnect', messenger.disconnect);

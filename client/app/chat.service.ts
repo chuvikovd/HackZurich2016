@@ -1,11 +1,17 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, EventEmitter} from 'angular2/core';
+import { Message } from '../models/Message'
 
 @Injectable()
 export class ChatService {
     socket;
 
+    getMessage$: EventEmitter<any>;
+
+
     constructor() {
         this.socket = io(window.location.host);
+
+        this.getMessage$ = new EventEmitter;
 
         this.socket.on("connect", () => {
             console.log("Connected to Chat Socket");
@@ -15,17 +21,18 @@ export class ChatService {
             console.log("Disconnected from Chat Socket");
         });
 
-        this.socket.on("message", (msg) => {
-            console.log("Message received: " + msg);
+        this.socket.on("msg", (message: Message) => {
+            console.log(message);
+            console.log("Message received: " + message.body + ", from {" + message.lat +", " + message.lng + "}");
+            this.getMessage$.emit(message);
         });
 
     }
 
     sendMessage(message) {
         getLocation((pos) => {
-            console.log(pos.lat);
-            this.socket.emit("message", message );
-            console.log("Sending message: ", message);
+            this.socket.emit("message", pos.lat, pos.lng, message );
+            console.log("Sending message: " + message + " from " + pos.lat + " " + pos.lng);
         });
      }
 
