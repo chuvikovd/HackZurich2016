@@ -8,7 +8,7 @@ import {ChatService} from './chat.service';
     template: `
     <div class="chat-container">
         <div id="chat">
-            <form id="JoinForm" class="form-inline text-right">
+            <form class="form-inline text-right">
                 <fieldset>
                   <input type="text" class="form-control msg-input" [(ngModel)]="inputValue" placeholder="Type a message here" autocomplete="off" required autofocus />
                   <button id="send" class="btn btn-success msg-send" (click)="sendMessage()">Send</button>

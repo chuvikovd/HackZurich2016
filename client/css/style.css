@@ -13,7 +13,8 @@ body,
   border: 0; }
 
 .app-container,
-.map-container {
+.map-container,
+.main-container {
   width: 100%;
   height: 100%; }
 

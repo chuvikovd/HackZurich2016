@@ -1,4 +1,4 @@
-System.register(['angular2/core', './map.component', './chat.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './mainChat.component', './joinChat.component', './chat.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,30 +10,38 @@ System.register(['angular2/core', './map.component', './chat.component'], functi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, map_component_1, chat_component_1;
+    var core_1, mainChat_component_1, joinChat_component_1, chat_service_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (map_component_1_1) {
-                map_component_1 = map_component_1_1;
+            function (mainChat_component_1_1) {
+                mainChat_component_1 = mainChat_component_1_1;
             },
-            function (chat_component_1_1) {
-                chat_component_1 = chat_component_1_1;
+            function (joinChat_component_1_1) {
+                joinChat_component_1 = joinChat_component_1_1;
+            },
+            function (chat_service_1_1) {
+                chat_service_1 = chat_service_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent() {
+                function AppComponent(_chatService) {
+                    this._chatService = _chatService;
                 }
+                AppComponent.prototype.ngOnInit = function () {
+                    //one component is created grab a reference to the server from the Chat Service
+                    this.server = this._chatService.getServer();
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: "app",
-                        directives: [map_component_1.MapComponent, chat_component_1.ChatComponent],
-                        template: "\n    <div class=\"app-container\">\n        <map></map>\n        <chat></chat>\n    </div>\n  "
+                        directives: [mainChat_component_1.MainChatComponent, joinChat_component_1.JoinChatComponent],
+                        template: "\n    <div class=\"app-container\">\n    \n        <join-chat *ngIf=\"!server.joined\"></join-chat>\n        \n        <main-chat *ngIf=\"server.joined\"></main-chat>\n        \n    </div>\n  "
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [chat_service_1.ChatService])
                 ], AppComponent);
                 return AppComponent;
             }());
