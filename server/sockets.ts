@@ -1,4 +1,4 @@
-import {Messenger} from './Messenger.js';
+import {Messenger} from './messenger';
 import {Message} from '../client/models/Message'
 
 export class Sockets {

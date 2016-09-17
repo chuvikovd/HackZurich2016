@@ -1,6 +1,6 @@
 import {Message} from '../client/models/Message';
 import {User} from '../client/models/User';
-import {Database} from './Database';
+import {Database} from './database';
 
 export class Messenger {
     history: Array<Message>;

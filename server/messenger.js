@@ -1,5 +1,5 @@
 "use strict";
-var Database_1 = require('./Database');
+var database_1 = require('./database');
 var Messenger = (function () {
     function Messenger(io) {
         var _this = this;
@@ -26,7 +26,7 @@ var Messenger = (function () {
             console.log(user.name + " connected");
         };
         this.io = io;
-        this.db = new Database_1.Database(function () {
+        this.db = new database_1.Database(function () {
             //console.log(this.db.getMessages(10, 10, 5), 'close msg');
         });
     }
