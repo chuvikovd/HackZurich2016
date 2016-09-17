@@ -2,13 +2,7 @@ import {Message} from '../client/models/Message';
 import {User} from '../client/models/User';
 import {Database} from './Database';
 
-<<<<<<< HEAD
 export class Messenger {
-=======
-import * as mongoose from 'mongoose';
-
-export class Messenger{
->>>>>>> 3bb57a05b9bce6db320bacdff90948b252d2ab22
     history: Array<Message>;
     io: SocketIO.Server;
     test: string;
@@ -18,10 +12,9 @@ export class Messenger{
     constructor(io: SocketIO.Server) {
         this.io = io;
         this.db = new Database(() => {
-            console.log(this.db.getMessages(10, 10, 5), 'close msg');
+            //console.log(this.db.getMessages(10, 10, 5), 'close msg');
         });
     };
-
     disconnect = (socket: SocketIO.Socket) => {
         let user = findUserBySocket(this.users, socket);
         let index = this.users.indexOf(user);
