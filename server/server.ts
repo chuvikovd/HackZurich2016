@@ -8,21 +8,13 @@
 import express = require('express');
 import http = require('http');
 import path = require('path');
-import socketio = require('socket.io');
+import {Sockets} from './sockets';
 
 const app = express();
 const server = require('http').Server(app);
 const port : number = process.env.PORT || 3000;
-const io = socketio(server);
+const io = new Sockets(server);
 
-
-io.on('connection', function(socket){
-    console.log('A user connected');
-
-    socket.once('disconnect', function () {
-        console.log('A user disconnected');
-    });
-});
 
 app.use(express.static('client'));
 app.use('/client', express.static('client'));
