@@ -1,8 +1,8 @@
 import {User} from './User';
 
 export class Message{
-    latitude: number;
-    longitude: number;
+    lat: number;
+    long: number;
 
     body: string;
     time: string;
