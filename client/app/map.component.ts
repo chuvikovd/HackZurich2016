@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
         /*this.infoWindow = new google.maps.InfoWindow({map: this.map});
         this.infoWindow.setContent('Location found.');*/
         //customMarker(this.map, new Position(this.messages[0].lat, this.messages[0].lng));
-        customMarker(this.map, new Position(42.9837, -81.2497), "azaza");
+        //customMarker(this.map, new Position(42.9837, -81.2497), "azaza");
     }
 
 }
@@ -47,11 +47,15 @@ CustomMarker.prototype = new google.maps.OverlayView();
 
 function CustomMarker(opts) {
     this.setValues(opts);
+    this.deleted = false;
 }
 
 CustomMarker.prototype.draw = function() {
+    if(this.deleted) return;
     var self = this;
     var div = this.div;
+
+
     if (!div) {
         div = this.div = $('' +
             '<div>' +
@@ -85,6 +89,14 @@ CustomMarker.prototype.draw = function() {
     }
 };
 
+CustomMarker.prototype.remove = function() {
+    if (this.div) {
+        this.div.parentNode.removeChild(this.div);
+        this.div = null;
+    }
+    this.deleted = true;
+};
+
 var customMarker = function(map, pos, data) {
 
     var marker = new CustomMarker({
@@ -92,6 +104,11 @@ var customMarker = function(map, pos, data) {
         map: map,
         data: data
     });
+
+    setTimeout(() => {
+        marker.remove();
+        marker.div = null;
+    }, 5000);
 
 };
 
