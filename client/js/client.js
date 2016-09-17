@@ -39,8 +39,8 @@ Client.sendMessage = function (message) {
 
 Client.joinChat = function (name) {
     var self = this;
-    getPosition(function (pos) {
-        var usr = {name: name, lat: pos.coords.latitude, long: pos.coords.longitude};
+    getAccurateLocation(function (pos) {
+        var usr = {name: name, lat: pos[0], long: pos[1]};
         console.log(usr);
         self.socket.emit("join", usr)
     })

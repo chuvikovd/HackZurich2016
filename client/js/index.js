@@ -13,6 +13,36 @@ function getPosition(callback) {
     }
 }
 
+function getAccurateLocation(callback) {
+    if (!navigator.geolocation) {
+        console.log("Not accurate location called");
+        getLessAccurateLocation(callback);
+        return;
+    }
+
+    console.log("Test log");
+
+    var options = {
+        enableHighAccuracy: true,
+        maximumAge: 30000,
+        timeout: 27000
+    };
+
+    navigator.geolocation.getCurrentPosition(function (pos) {
+        callback([pos.coords.latitude, pos.coords.longitude])
+    }, function() {
+        getLessAccurateLocation(callback);
+    }, options);
+}
+
+function getLessAccurateLocation(callback) {
+
+    $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCZjE5z3hfWhw_ECLg2IExPcZ4Wxu-tOdg')
+        .done(function (locData) {
+            callback([locData.location.lat, locData.location.lng])
+        });
+}
+
 var Position = google.maps.LatLng;
 
 CustomMarker.prototype = new google.maps.OverlayView();
@@ -90,20 +120,22 @@ $( document ).ready(function() {
     console.log( "ready!" );
 
     var mapDiv = document.getElementById("map");
-    getPosition(function (pos) {
-        console.log(pos.coords.longitude);
+    getAccurateLocation(function (pos) {
+        console.log(pos[0], pos[1]);
         map = new google.maps.Map(mapDiv, {
-            center: new Position(pos.coords.latitude, pos.coords.longitude),
+            center: new Position(pos[0], pos[1]),
             zoom: 15
         });
     });
 
-    $('#login-button').on("click", function () {
+    $('#login-button').on("click", function (e) {
+        e.preventDefault();
         Client.joinChat($("#login-input").val());
         $("#login").hide();
     });
 
-    $('#send').on("click", function () {
+    $('#send').on("click", function (e) {
+        e.preventDefault();
         Client.sendMessage($("#input").val());
     });
 
