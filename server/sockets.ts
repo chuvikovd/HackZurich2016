@@ -4,7 +4,7 @@ export class Sockets {
     constructor(server: any) {
         let io = require('socket.io').listen(server);
         const messenger = new Messenger(io);
-        
+
         io.on('connection', function (socket) {
             console.log('new conn!');
 

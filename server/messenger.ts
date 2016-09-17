@@ -1,5 +1,7 @@
-import {Message} from '../client/models/Message'
-import {User} from '../client/models/User'
+import {Message} from '../client/models/Message';
+import {User} from '../client/models/User';
+
+import * as mongoose from 'mongoose';
 
 export class Messenger{
     history: Array<Message>;
