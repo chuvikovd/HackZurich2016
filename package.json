@@ -5,7 +5,6 @@
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "gulp compile-angular && gulp compile-server && gulp compile-models",
     "start": "node server/server.js"
   },
   "repository": {
