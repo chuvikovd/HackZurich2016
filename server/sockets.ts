@@ -14,10 +14,7 @@ export class Sockets {
             });
 
 
-            socket.on('message', function (lat : number, lng : number, data : string) {
-                console.log(lat, lng, data);
-                socket.emit('msg', new Message(lat, lng, data))
-            });
+            socket.on('message', messenger.receive);
 
             socket.once('disconnect', messenger.disconnect);
         });

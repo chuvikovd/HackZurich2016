@@ -1,5 +1,4 @@
 import { Component } from 'angular2/core';
-import { ChatService } from './chat.service';
 import { MapComponent } from './map.component';
 import { ChatComponent } from './chat.component';
 
@@ -17,7 +16,5 @@ import { ChatComponent } from './chat.component';
 })
 
 export class MainChatComponent {
-
-    constructor(private _chatService: ChatService) {}
 
 }

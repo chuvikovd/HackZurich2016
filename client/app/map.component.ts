@@ -21,17 +21,16 @@ export class MapComponent implements OnInit {
 
     constructor(private _chatService: ChatService) {
 
-        console.log('ChatService created');
         _chatService.getMessage$.subscribe(message => {
-            console.log("PREVIEW " + message.body + message.lat + message.lng);
-            customMarker(this.map, new Position(message.lat, message.lng), message.body);
-        })
+            console.log("PREVIEW " + message.body + message.user.lat + message.user.long);
+            customMarker(this.map, new Position(message.user.lat, message.user.long), message.body);
+        });
     }
 
     ngOnInit(){
         this.mapDiv = document.getElementById("map");
         this.map = new google.maps.Map(this.mapDiv, {
-            center: new Position(42.9837, -81.2497),
+            center: new Position(this._chatService.user.lat, this._chatService.user.long),
             zoom: 15
         });
 

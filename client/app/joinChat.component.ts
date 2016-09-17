@@ -26,6 +26,9 @@ export class JoinChatComponent {
     constructor(private _chatService: ChatService) {}
 
     joinChat() {
+        console.log("test click1111");
         this._chatService.joinChat(this.inputValue);
+        console.log(this.inputValue);
+
     }
 }
