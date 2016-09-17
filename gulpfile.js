@@ -9,7 +9,8 @@ var gulp = require('gulp'),
 
 var appSrc = 'client/',
     angularTsSrc = 'client/',
-    serverTsSrc = 'server/';
+    serverTsSrc = 'server/',
+    modelsTsSrc = 'models/';
 
 // we'd need a slight delay to reload browsers
 // connected to browser-sync after restarting nodemon
@@ -92,6 +93,17 @@ gulp.task('compile-server', function () {
         }));
 });
 
+gulp.task('compile-models', function () {
+    return gulp
+        .src(modelsTsSrc + '*.ts')
+        .pipe(sourcemaps.init())
+        .pipe(typescript(tscConfig.compilerOptionsBE))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(function(file) {
+            return file.base;
+        }));
+});
+
 gulp.task('js',  function () {
   return gulp.src('client/**/*.js');
     // do stuff to JavaScript files
@@ -108,10 +120,11 @@ gulp.task('bs-reload', function () {
   browserSync.reload();
 });
 
-gulp.task('default', ['copylibs', 'compile-angular', 'compile-server', 'browser-sync'], function () {
+gulp.task('default', ['copylibs', 'compile-angular', 'compile-server', 'compile-models', 'browser-sync'], function () {
   gulp.watch('client/**/*.js',   ['js', browserSync.reload]);
   gulp.watch('client/**/*.css',  ['css']);
   gulp.watch('client/**/*.html', ['bs-reload']);
   gulp.watch('server/**/*.ts', ['compile-server']);
   gulp.watch('client/**/*.ts', ['compile-angular']);
+  gulp.watch('client/models/*.ts', ['compile-models']);
 });
