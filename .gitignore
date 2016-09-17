@@ -49,6 +49,8 @@ client/*.js
 client/*.js.map
 server/*.js
 server/*.js.map
+client/models/*.js
+client/models/*.js.map
 
 # Public libs
 public/js/lib/

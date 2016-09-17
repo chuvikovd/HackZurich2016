@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 var appSrc = 'client/',
     angularTsSrc = 'client/',
     serverTsSrc = 'server/',
-    modelsTsSrc = 'models/';
+    modelsTsSrc = 'client/models/';
 
 // we'd need a slight delay to reload browsers
 // connected to browser-sync after restarting nodemon
@@ -72,7 +72,7 @@ gulp.task('copylibs', function() {
 
 gulp.task('compile-angular', function () {
   return gulp
-      .src(angularTsSrc + '**/*.ts')
+      .src(angularTsSrc + 'app/**/*.ts')
       .pipe(sourcemaps.init())
       .pipe(typescript(tscConfig.compilerOptionsFE))
       .pipe(sourcemaps.write('.'))
@@ -95,7 +95,7 @@ gulp.task('compile-server', function () {
 
 gulp.task('compile-models', function () {
     return gulp
-        .src(modelsTsSrc + '*.ts')
+        .src(modelsTsSrc + '*/*.ts')
         .pipe(sourcemaps.init())
         .pipe(typescript(tscConfig.compilerOptionsBE))
         .pipe(sourcemaps.write('.'))
