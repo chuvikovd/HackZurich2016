@@ -1,9 +1,6 @@
 import {User} from './User';
 
 export class Message{
-    lat: number;
-    long: number;
-
     body: string;
     time: string;
     author: User;
