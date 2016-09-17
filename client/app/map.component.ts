@@ -1,25 +1,26 @@
 import { Component, OnInit } from 'angular2/core';
 import { Message } from '../models/Message'
+import {ChatService} from './chat.service';
 
 @Component({
-    selector: "chat-app",
+    selector: "map",
     template: `
     <div class="map-container">
         <div id="map">
       
         </div>
     </div>
-    <button (click)="showZurich()">Show Zurich</button>
   `
 })
 
 export class MapComponent implements OnInit {
 
-    mapDiv = document.getElementById("map");
+    mapDiv;
     map;
     infoWindow;
 
     ngOnInit(){
+        this.mapDiv = document.getElementById("map");
         this.map = new google.maps.Map(this.mapDiv, {
             center: new Position(42.9837, -81.2497),
             zoom: 8
@@ -28,12 +29,6 @@ export class MapComponent implements OnInit {
         this.infoWindow.setContent('Location found.');*/
         customMarker(this.map, new Position(47.389733899999996, 8.5165039));
         customMarker(this.map, new Position(42.9837, -81.2497));
-    }
-
-    showZurich() {
-        this.infoWindow.setPosition({lat: 47.3898377, lng: 8.5163581});
-        this.map.setCenter({lat: 47.3898377, lng: 8.5163581});
-
     }
 
 }
