@@ -26,6 +26,7 @@ export class Messenger {
 
     receive = (message: Message) => {
         this.db.addMessage(message);
+        console.log(message.user);
         this.io.emit('message', message);
     };
 

@@ -16,6 +16,7 @@ var Messenger = (function () {
         };
         this.receive = function (message) {
             _this.db.addMessage(message);
+            console.log(message.user);
             _this.io.emit('message', message);
         };
         this.join = function (user, socket) {

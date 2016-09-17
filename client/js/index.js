@@ -122,20 +122,6 @@ $( document ).ready(function() {
 
     console.log( "ready!" );
 
-    var mapDiv = document.getElementById("map");
-    getAccurateLocation(function (pos) {
-        console.log(pos[0], pos[1]);
-        map = new google.maps.Map(mapDiv, {
-            center: new Position(pos[0], pos[1]),
-            zoom: 15,
-            zoomControl: true,
-            scaleControl: true,
-            streetViewControl: false
-
-
-        });
-    });
-
     $('#login-button').on("click", function (e) {
         e.preventDefault();
         Client.joinChat($("#login-input").val());
