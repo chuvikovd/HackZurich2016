@@ -11,9 +11,7 @@ export class Messenger {
 
     constructor(io: SocketIO.Server) {
         this.io = io;
-        this.db = new Database(() => {
-            //console.log(this.db.getMessages(10, 10, 5), 'close msg');
-        });
+        this.db = new Database(() => {});        
     };
     disconnect = (socket: SocketIO.Socket) => {
         let user = findUserBySocket(this.users, socket);
@@ -27,13 +25,14 @@ export class Messenger {
     };
 
     receive = (message: Message) => {
-        //TODO: DB save
-        console.log(message);
+        this.db.addMessage(message);
         this.io.emit('message', message);
     };
 
     join = (user: User, socket: SocketIO.Socket) => {
-        socket.emit('welcome', user);
+        let {latX, longX} = mdToLatLong(10000, user.lat, user.long);
+        let msgs = this.db.getMessages(user.lat, user.long, latX, longX);
+        socket.emit('welcome', user, msgs);
         user.socket = socket;
         this.users.push(user);
         console.log(`${user.name} connected`);
@@ -42,4 +41,12 @@ export class Messenger {
 
 function findUserBySocket(arr: Array<User>, socket: SocketIO.Socket): User {
     return arr.filter(u => u.socket === socket)[0];
+}
+
+//Meters in diameter to latitude and longitude
+function mdToLatLong(meters: number, latitude: number, longitude: number){
+    let km = meters/1000;
+    let latX = (1/110.574)*km;
+    let longX = (1/(111.320*Math.cos(latitude)))*km;
+    return {latX, longX};
 }
