@@ -28,7 +28,7 @@ Client.onWelcome = function (user) {
 Client.onMessage = function (message) {
     console.log("Received message", message);
     console.log(message.user.lat, message.user.long);
-    customMarker(map, new Position(message.user.lat, message.user.long), message.body);
+    customMarker(map, message);
 };
 
 Client.sendMessage = function (message) {

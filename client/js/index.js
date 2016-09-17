@@ -66,7 +66,7 @@ CustomMarker.prototype.draw = function() {
             '<div class="pin-wrap">' +
             '<div class="pin">' +
             '<div class="content">' +
-            '<span class="author">Dmitrijs:</span>' +
+            '<span class="author">' + this.userName + ':</span>' +
             '<p>' + this.data + '</p>' +
             '</div>' +
             '</div>' +
@@ -99,12 +99,13 @@ CustomMarker.prototype.remove = function() {
     this.deleted = true;
 };
 
-var customMarker = function(map, pos, data) {
+var customMarker = function(map, message) {
 
     var marker = new CustomMarker({
-        position: pos,
+        position: new Position(message.user.lat, message.user.long),
         map: map,
-        data: data
+        data: message.body,
+        userName: message.user.name
     });
 
     setTimeout(function(){
@@ -117,6 +118,8 @@ var customMarker = function(map, pos, data) {
 var map;
 
 $( document ).ready(function() {
+    $.material.init();
+
     console.log( "ready!" );
 
     var mapDiv = document.getElementById("map");
@@ -124,19 +127,31 @@ $( document ).ready(function() {
         console.log(pos[0], pos[1]);
         map = new google.maps.Map(mapDiv, {
             center: new Position(pos[0], pos[1]),
-            zoom: 15
+            zoom: 15,
+            zoomControl: true,
+            scaleControl: true,
+            streetViewControl: false
+
+
         });
     });
 
     $('#login-button').on("click", function (e) {
         e.preventDefault();
         Client.joinChat($("#login-input").val());
-        $("#login").hide();
+        $(".login-container").hide();
     });
 
     $('#send').on("click", function (e) {
         e.preventDefault();
-        Client.sendMessage($("#input").val());
+        Client.sendMessage($("#chat-msg").val());
+        $("#chat-msg").val("");
+    });
+
+    $("#chat-msg").keypress(function (e) {
+        if(e.which == 13) {
+            $('#send').click();
+        }
     });
 
 });
