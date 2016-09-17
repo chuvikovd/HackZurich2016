@@ -8,7 +8,7 @@
 import express = require('express');
 import http = require('http');
 import path = require('path');
-import {Sockets} from './sockets';
+import {Sockets} from './sockets.js';
 
 const app = express();
 const server = require('http').Server(app);

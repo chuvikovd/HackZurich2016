@@ -4,11 +4,11 @@
 /// <reference path="../typings/main.d.ts" />
 'use strict';
 var express = require('express');
-var sockets_1 = require('./sockets');
+var sockets_js_1 = require('./sockets.js');
 var app = express();
 var server = require('http').Server(app);
 var port = process.env.PORT || 3000;
-var io = new sockets_1.Sockets(server);
+var io = new sockets_js_1.Sockets(server);
 app.use(express.static('client'));
 app.use('/client', express.static('client'));
 server.listen(3000, 'localhost');

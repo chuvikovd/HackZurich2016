@@ -1,9 +1,9 @@
 "use strict";
-var Messenger_1 = require('./Messenger');
+var Messenger_js_1 = require('./Messenger.js');
 var Sockets = (function () {
     function Sockets(server) {
         var io = require('socket.io').listen(server);
-        var messenger = new Messenger_1.Messenger(io);
+        var messenger = new Messenger_js_1.Messenger(io);
         io.on('connection', function (socket) {
             console.log('new conn!');
             socket.on('join', function (user) {
