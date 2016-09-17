@@ -20,7 +20,6 @@ export class Database {
                 this.messages = messages;
             }
             this.save();
-            console.log(this.messages.data);
             console.log('DB LOADED');
             callback();
         });
@@ -34,7 +33,6 @@ export class Database {
 
     getMessages = (lat: number, long: number, radius: number) => {
         let msg = this.messages.where((msg: Message) => {
-            console.log(msg.user.lat, lat+radius);
             return (msg.user.lat >= lat-radius &&
                     msg.user.lat <= lat+radius &&
                     msg.user.long >= long-radius &&
