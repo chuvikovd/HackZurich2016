@@ -29,6 +29,10 @@ var Messenger = (function () {
         this.db = new database_1.Database(function () {
             //console.log(this.db.getMessages(10, 10, 5), 'close msg');
         });
+        console.log(mdToLatLong(100, 100, 50));
+        console.log(mdToLatLong(200, 50, 100));
+        console.log(mdToLatLong(1000, 0, 0));
+        console.log(mdToLatLong(100, 20, 20));
     }
     ;
     return Messenger;
@@ -36,6 +40,13 @@ var Messenger = (function () {
 exports.Messenger = Messenger;
 function findUserBySocket(arr, socket) {
     return arr.filter(function (u) { return u.socket === socket; })[0];
+}
+//Meters in diameter to latitude and longitude
+function mdToLatLong(meters, latitude, longitude) {
+    var km = meters / 1000;
+    var latX = (1 / 110.574) * km;
+    var longX = (1 / (111.320 * Math.cos(latitude))) * km;
+    return { latX: latX, longX: longX };
 }
 
 //# sourceMappingURL=messenger.js.map

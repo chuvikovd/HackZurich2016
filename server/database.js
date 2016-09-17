@@ -7,12 +7,12 @@ var Database = (function () {
             _this.messages.insert(message);
             _this.save();
         };
-        this.getMessages = function (lat, long, radius) {
+        this.getMessages = function (lat, long, latX, longX) {
             var msg = _this.messages.where(function (msg) {
-                return (msg.user.lat >= lat - radius &&
-                    msg.user.lat <= lat + radius &&
-                    msg.user.long >= long - radius &&
-                    msg.user.long <= long + radius);
+                return (msg.user.lat >= lat - latX &&
+                    msg.user.lat <= lat + latX &&
+                    msg.user.long >= long - longX &&
+                    msg.user.long <= long + longX);
             });
             return msg;
         };

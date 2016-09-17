@@ -31,12 +31,12 @@ export class Database {
         this.save();
     }
 
-    getMessages = (lat: number, long: number, radius: number) => {
+    getMessages = (lat: number, long: number, latX: number, longX: number) => {
         let msg = this.messages.where((msg: Message) => {
-            return (msg.user.lat >= lat-radius &&
-                    msg.user.lat <= lat+radius &&
-                    msg.user.long >= long-radius &&
-                    msg.user.long <= long+radius);
+            return (msg.user.lat >= lat-latX &&
+                    msg.user.lat <= lat+latX &&
+                    msg.user.long >= long-longX &&
+                    msg.user.long <= long+longX);
         });
 
         return msg;
