@@ -11,7 +11,7 @@ var port = process.env.PORT || 3000;
 var io = new sockets_1.Sockets(server);
 app.use(express.static('client'));
 app.use('/client', express.static('client'));
-server.listen(port, 'localhost');
+server.listen(port);
 server.on('listening', function () {
     console.log('Express server started on port %s at %s', server.address().port, server.address().address);
 });
