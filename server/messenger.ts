@@ -33,9 +33,8 @@ export class Messenger {
     };
 
     join = (user: User, socket: SocketIO.Socket) => {
+        socket.emit('welcome', user);        
         user.socket = socket;
-        user.socket.emit('welcome', user);
-        this.io.emit('joined', user);
         this.users.push(user);
         console.log(`${user.name} connected`);
     };
