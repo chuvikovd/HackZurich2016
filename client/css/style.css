@@ -11,7 +11,13 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  border: 0; }
+  border: 0;
+  overflow: hidden; }
+
+.navbar {
+  position: absolute;
+  width: 100%;
+  z-index: 100; }
 
 .main-container {
   position: relative;
@@ -23,20 +29,30 @@ body {
     top: 0;
     position: absolute;
     z-index: 10;
-    margin: 0; }
+    margin: 0;
+    background: url("https://i.imgur.com/oP6uFMY.png") no-repeat center center;
+    background-size: cover; }
   .main-container .chat-container {
     height: 100%;
-    padding-bottom: 110px; }
+    padding-bottom: 120px;
+    padding-top: 60px;
+    padding-right: 450px; }
     .main-container .chat-container .form-group {
       margin: 0; }
   .main-container #login {
     width: 100%;
     height: 100%;
-    background-color: #fff;
     z-index: 10;
     position: absolute;
     left: 0;
     top: 0; }
+    .main-container #login .col-md-6 {
+      background-color: rgba(255, 255, 255, 0.8);
+      margin-top: 110px;
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+      .main-container #login .col-md-6 .legend {
+        font-weight: 900;
+        font-size: 24px; }
     .main-container #login .form-horizontal {
       margin: 50px auto; }
   .main-container #map {
@@ -46,8 +62,20 @@ body {
     padding: 0;
     border: 0; }
   .main-container #chat {
-    height: 110px;
-    padding-top: 10px; }
+    height: 120px;
+    padding: 20px;
+    box-shadow: 3px -5px 16px -3px rgba(0, 0, 0, 0.75);
+    background-color: #eeeeee; }
+    .main-container #chat textarea {
+      padding: 10px;
+      height: 80px; }
+  .main-container #history {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 60px;
+    width: 450px;
+    background-color: #eeeeee; }
 
 .pin-wrap {
   position: absolute;
@@ -81,10 +109,16 @@ body {
     color: #fff;
     left: 20px;
     top: 10px;
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.4); }
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.4); }
   .pin p {
     position: absolute;
-    margin: 0; }
+    color: white;
+    margin: 0;
+    width: 150px;
+    height: 55px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px; }
 
 .pin::after {
   position: absolute;
@@ -93,8 +127,9 @@ body {
   width: 200px;
   height: 100px;
   content: '';
-  background-color: #f93c11;
-  border-radius: 50px; }
+  background-color: #e53935;
+  border-radius: 15px;
+  box-shadow: 3px -5px 16px -3px rgba(0, 0, 0, 0.75); }
 
 .pin::before {
   position: absolute;
@@ -222,5 +257,9 @@ h1 {
 .animations a:hover {
   color: white;
   background: #f93c11; }
+
+@media screen and (max-width: 1280px) {
+  .chat-container {
+    padding-top: 50px; } }
 
 /*# sourceMappingURL=sourcemaps/style.css.map */

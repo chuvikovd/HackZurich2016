@@ -127,7 +127,12 @@ $( document ).ready(function() {
         console.log(pos[0], pos[1]);
         map = new google.maps.Map(mapDiv, {
             center: new Position(pos[0], pos[1]),
-            zoom: 15
+            zoom: 15,
+            zoomControl: true,
+            scaleControl: true,
+            streetViewControl: false
+
+
         });
     });
 
