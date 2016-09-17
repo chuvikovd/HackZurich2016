@@ -5,12 +5,29 @@ var gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     typescript = require('gulp-typescript'),
     sourcemaps = require('gulp-sourcemaps'),
-    tscConfig = require('./tsconfig.json');
+    tscConfig = require('./tsconfig.json'),
+    postcss = require('gulp-postcss'),
+    filter = require('gulp-filter'),
+    sass = require('gulp-sass'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
+    rename = require("gulp-rename"),
+    cssnano = require('gulp-cssnano'),
+    autoprefixer = require('autoprefixer'),
+    notify = require('gulp-notify');
+
 
 var appSrc = 'client/',
     angularTsSrc = 'client/',
     serverTsSrc = 'server/',
     modelsTsSrc = 'client/models/';
+
+var path = {
+    dev: {
+        scss: "./client/scss/**/*.scss",
+        css: "./client/css"
+    }
+};
 
 // we'd need a slight delay to reload browsers
 // connected to browser-sync after restarting nodemon
@@ -116,15 +133,35 @@ gulp.task('css', function () {
     .pipe(browserSync.reload({ stream: true }));
 });
 
+gulp.task('dev-styles', function () {
+    return gulp.src( path.dev.scss )
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write('./sourcemaps'))
+        .pipe(gulp.dest( path.dev.css ));
+});
+
+gulp.task('autoprefix', function() {
+    var processors = [
+        autoprefixer({browsers: ['last 15 versions']})
+    ];
+    return gulp.src( './assets/dev/css/main.css' )
+        .pipe(postcss([ autoprefixer({ browsers: ['last 12 versions'] }) ]))
+        .pipe(gulp.dest( path.dev.css ));
+});
+
 gulp.task('bs-reload', function () {
   browserSync.reload();
 });
 
-gulp.task('default', ['copylibs', 'compile-angular', 'compile-server', 'compile-models', 'browser-sync'], function () {
-  gulp.watch('client/**/*.js',   ['js', browserSync.reload]);
-  gulp.watch('client/**/*.css',  ['css']);
-  gulp.watch('client/**/*.html', ['bs-reload']);
-  gulp.watch('server/**/*.ts', ['compile-server']);
-  gulp.watch('client/**/*.ts', ['compile-angular']);
-  gulp.watch('client/models/*.ts', ['compile-models']);
+gulp.task('default', ['copylibs', 'compile-angular', 'compile-server', 'compile-models', 'dev-styles', 'autoprefix', 'browser-sync'], function () {
+    gulp.watch('client/**/*.js',   ['js', browserSync.reload]);
+    gulp.watch('client/**/*.css',  ['css']);
+    gulp.watch('client/**/*.html', ['bs-reload']);
+    gulp.watch('server/**/*.ts', ['compile-server']);
+    gulp.watch('client/**/*.ts', ['compile-angular']);
+    gulp.watch('client/models/*.ts', ['compile-models']);
+    gulp.watch(path.dev.scss, function() {
+        gulp.run('dev-styles', 'autoprefix');
+    });
 });

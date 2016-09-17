@@ -47,6 +47,8 @@ node_modules/
 # Client, server .js and .js.map files
 client/*.js
 client/*.js.map
+client/app/*.js
+client/app/*.js.map
 server/*.js
 server/*.js.map
 client/models/*.js
