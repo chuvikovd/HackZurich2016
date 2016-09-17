@@ -13,61 +13,43 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
-    <!-- Angular Required Polyfills -->
-    <script src="js/lib/angular2/system-polyfills.js"></script>
-    <script src="js/lib/angular2/es6-shim.min.js"></script>
-    <script src="js/lib/angular2/angular2-polyfills.js"></script>
-    <script src="js/lib/angular2/system.src.js"></script>
-    <script src="js/lib/angular2/Rx.js"></script>
-
     <!-- Socket.io -->
     <script src="//cdn.socket.io/socket.io-1.4.5.js"></script>
-
-    <!-- Angular -->
-    <script src="js/lib/angular2/angular2.dev.js"></script>
 
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8F2YYM5lVTY0QqUlSFTBkxFCnhL7lIDs"></script>
 
-    <script src="index.js"></script>
+
+    <script src="js/client.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/sockets.js"></script>
 
 
-    <!-- Module Loading with System.js -->
-    <script>
-        System.config({
-            packages: {
-                "app": {
-                    defaultJSExtension: 'js'
-                },
-                "models": {
-                    defaultJSExtension: 'js'
-                },
-                js: {
-                    format: 'register',
-                    defaultExtension: 'js'
-                }
-            },
-           /* map: {
-                "app": "../client"
-            },*/
-/*
-            defaultExtensions: true,
-*/
-            baseURL: ''
-/*            defaultExtension: 'js',
-            defaultJSExtensions: false*/
-        });
-        System.import('app/main.js')
-                .then(null, console.error.bind(console));
-    </script>
 
 </head>
 
 <script>
-    var socket = io();
+
 </script>
 <body>
-    <app></app>
+<div class="main-container container-fluid">
+    <div id="login">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div id="logn-form">
+                    <input id="login-input" class="form-control msg-input" type="text" placeholder="Enter your username">
+                    <button id="login-button" class="btn btn-success msg-send">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="map"></div>
+        <div id="chat">
+            <input id="input" class="form-control msg-input" type="text" placeholder="Type a message here">
+            <button id="send" class="btn btn-success msg-send">Send</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

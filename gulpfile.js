@@ -154,12 +154,11 @@ gulp.task('bs-reload', function () {
   browserSync.reload();
 });
 
-gulp.task('default', ['copylibs', 'compile-angular', 'compile-server', 'compile-models', 'dev-styles', 'autoprefix', 'browser-sync'], function () {
+gulp.task('default', ['copylibs', 'compile-server', 'compile-models', 'dev-styles', 'autoprefix', 'browser-sync'], function () {
     gulp.watch('client/**/*.js',   ['js', browserSync.reload]);
     gulp.watch('client/**/*.css',  ['css']);
     gulp.watch('client/**/*.html', ['bs-reload']);
     gulp.watch('server/**/*.ts', ['compile-server']);
-    gulp.watch('client/**/*.ts', ['compile-angular']);
     gulp.watch('client/models/*.ts', ['compile-models']);
     gulp.watch(path.dev.scss, function() {
         gulp.run('dev-styles', 'autoprefix');
