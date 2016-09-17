@@ -32,7 +32,7 @@ export class Messenger {
     join = (user: User, socket: SocketIO.Socket) => {
         let {latX, longX} = mdToLatLong(10000, user.lat, user.long);
         let msgs = this.db.getMessages(user.lat, user.long, latX, longX);
-        socket.emit('welcome', user, msgs);
+        socket.emit('welcome', {user: user, msgs: msgs});
         user.socket = socket;
         this.users.push(user);
         console.log(`${user.name} connected`);

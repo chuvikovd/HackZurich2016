@@ -15,24 +15,19 @@ var Messenger = (function () {
             console.log(socket.id + " disconnected!");
         };
         this.receive = function (message) {
-            //TODO: DB save
-            console.log(message);
+            _this.db.addMessage(message);
             _this.io.emit('message', message);
         };
         this.join = function (user, socket) {
-            socket.emit('welcome', user);
+            var _a = mdToLatLong(10000, user.lat, user.long), latX = _a.latX, longX = _a.longX;
+            var msgs = _this.db.getMessages(user.lat, user.long, latX, longX);
+            socket.emit('welcome', { user: user, msgs: msgs });
             user.socket = socket;
             _this.users.push(user);
             console.log(user.name + " connected");
         };
         this.io = io;
-        this.db = new database_1.Database(function () {
-            //console.log(this.db.getMessages(10, 10, 5), 'close msg');
-        });
-        console.log(mdToLatLong(100, 100, 50));
-        console.log(mdToLatLong(200, 50, 100));
-        console.log(mdToLatLong(1000, 0, 0));
-        console.log(mdToLatLong(100, 20, 20));
+        this.db = new database_1.Database(function () { });
     }
     ;
     return Messenger;

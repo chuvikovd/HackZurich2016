@@ -19,16 +19,22 @@ Client.onDisconnect = function () {
     this.connected = false;
 };
 
-Client.onWelcome = function (user) {
+Client.onWelcome = function (user, msgs) {
     console.log("Received welcome message", user);
     this.joined = true;
     this.user = user;
+    for (var m of msgs.reverse()){
+        console.log(m);
+        addToHistory(m);
+
+    }
 };
 
 Client.onMessage = function (message) {
     console.log("Received message", message);
     console.log(message.user.lat, message.user.long);
     customMarker(map, message);
+    addToHistory(message);
 };
 
 Client.sendMessage = function (message) {
@@ -45,3 +51,10 @@ Client.joinChat = function (name) {
         self.socket.emit("join", usr)
     })
 };
+
+function addToHistory(msg) {
+    $(".history-container").append('<div class="history-item">' +
+    '<span class="author">' + msg.user.name + ':</span>' +
+    '<p class="msg">' + msg.body + '</p>' +
+    '</div>');
+}

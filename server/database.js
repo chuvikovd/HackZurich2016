@@ -9,10 +9,10 @@ var Database = (function () {
         };
         this.getMessages = function (lat, long, latX, longX) {
             var msg = _this.messages.where(function (msg) {
-                return (msg.user.lat >= lat - latX &&
-                    msg.user.lat <= lat + latX &&
-                    msg.user.long >= long - longX &&
-                    msg.user.long <= long + longX);
+                return (msg.user.lat >= lat - Math.abs(latX) &&
+                    msg.user.lat <= lat + Math.abs(latX) &&
+                    msg.user.long >= long - Math.abs(longX) &&
+                    msg.user.long <= long + Math.abs(longX));
             });
             return msg;
         };

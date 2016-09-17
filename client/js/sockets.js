@@ -7,9 +7,9 @@ socket.on("connect", Client.onConnect);
 
 socket.on("disconnect", Client.onDisconnect);
 
-socket.on("welcome", function (usr) {
+socket.on("welcome", function (receive) {
     console.log('hihihihih');
-    Client.onWelcome(usr);
+    Client.onWelcome(receive.user, receive.msgs);
 });
 
 socket.on("message", Client.onMessage);

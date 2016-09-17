@@ -33,12 +33,11 @@ export class Database {
 
     getMessages = (lat: number, long: number, latX: number, longX: number) => {
         let msg = this.messages.where((msg: Message) => {
-            return (msg.user.lat >= lat-latX &&
-                    msg.user.lat <= lat+latX &&
-                    msg.user.long >= long-longX &&
-                    msg.user.long <= long+longX);
+            return (msg.user.lat >= lat-Math.abs(latX) &&
+                    msg.user.lat <= lat+Math.abs(latX) &&
+                    msg.user.long >= long-Math.abs(longX) &&
+                    msg.user.long <= long+Math.abs(longX));
         });
-
         return msg;
     }
 
