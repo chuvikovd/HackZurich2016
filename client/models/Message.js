@@ -1,9 +1,8 @@
 "use strict";
 var Message = (function () {
-    function Message(body, time, author) {
+    function Message(body, user) {
         this.body = body;
-        this.time = time;
-        this.author = author;
+        this.user = user;
     }
     return Message;
 }());

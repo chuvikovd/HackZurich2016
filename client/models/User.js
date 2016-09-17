@@ -1,7 +1,9 @@
 "use strict";
 var User = (function () {
-    function User(name) {
+    function User(name, lat, long) {
         this.name = name;
+        this.lat = lat;
+        this.long = long;
     }
     return User;
 }());

@@ -1,12 +1,12 @@
+import {User} from './User';
+
 export class Message{
-    lat: number;
-    lng: number;
-
     body: string;
+    user: User;
 
-    constructor(lat: number, lng: number, body: string){
-        this.lat = lat;
-        this.lng = lng;
+
+    constructor(body: string, user: User){
         this.body = body;
+        this.user = user;
     }
 }
