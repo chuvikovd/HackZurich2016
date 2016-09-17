@@ -1,4 +1,5 @@
-var socket = io.connect("https://chathack.herokuapp.com");
+// var socket = io.connect("https://chathack.herokuapp.com");
+var socket = io(document.location.host);
 
 Client.connect(socket);
 
