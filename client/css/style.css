@@ -35,8 +35,7 @@ body {
   .main-container .chat-container {
     height: 100%;
     padding-bottom: 120px;
-    padding-top: 60px;
-    padding-right: 450px; }
+    padding-top: 50px; }
     .main-container .chat-container .form-group {
       margin: 0; }
   .main-container #login {
@@ -72,9 +71,8 @@ body {
       height: 80px; }
   .main-container #history {
     position: absolute;
-    right: 0;
     bottom: 0;
-    top: 60px;
+    top: 50px;
     width: 450px;
     background-color: #eeeeee;
     box-shadow: 3px -5px 16px -3px rgba(0, 0, 0, 0.75); }
@@ -271,8 +269,16 @@ h1 {
   color: white;
   background: #f93c11; }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 480px) {
+  #history {
+    right: -450px; }
   .chat-container {
-    padding-top: 50px; } }
+    padding-right: 0; } }
+
+@media screen and (min-width: 480px) and (max-width: 1920px) {
+  #history {
+    right: 0; }
+  .chat-container {
+    padding-right: 450px; } }
 
 /*# sourceMappingURL=sourcemaps/style.css.map */
